@@ -1,10 +1,11 @@
-
 import os
 import tkinter as tk
 from tkinter import ttk, messagebox
 
 def procesar_archivos():
     root_dir = entry.get()
+    old_string = old_string_entry.get()
+    new_string = new_string_entry.get()
 
     # Calcular la cantidad total de archivos a procesar
     total = sum([len(files) for r, d, files in os.walk(root_dir)])
@@ -22,7 +23,7 @@ def procesar_archivos():
             if file.startswith('index'):
                 with open(file_path, 'r') as f:
                     file_content = f.read()
-                file_content = file_content.replace('/', '-')
+                file_content = file_content.replace(old_string, new_string)
                 with open(file_path, 'w') as f:
                     f.write(file_content)
 
@@ -34,12 +35,22 @@ def cancelar_proceso():
 
 root = tk.Tk()
 root.title("Ingrese la ruta de la carpeta")
-root.geometry("500x200")
+root.geometry("500x300")
 
 label = tk.Label(root, text="Ingrese la ruta de la carpeta:")
 label.pack()
 entry = tk.Entry(root, width=50)
 entry.pack()
+
+old_string_label = tk.Label(root, text="Ingrese la cadena a reemplazar:")
+old_string_label.pack()
+old_string_entry = tk.Entry(root, width=50)
+old_string_entry.pack()
+
+new_string_label = tk.Label(root, text="Ingrese la cadena de reemplazo:")
+new_string_label.pack()
+new_string_entry = tk.Entry(root, width=50)
+new_string_entry.pack()
 
 barra = ttk.Progressbar(root, orient="horizontal", mode="determinate", length=300)
 barra.pack(pady=10)
