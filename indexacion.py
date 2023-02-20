@@ -20,7 +20,7 @@ def procesar_archivos():
             root.update_idletasks()
 
             file_path = os.path.join(subdir, file)
-            if file.startswith('index'):
+            if file.startswith('info'):
                 with open(file_path, 'r') as f:
                     file_content = f.read()
                 file_content = file_content.replace(old_string, new_string)
